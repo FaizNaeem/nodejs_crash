@@ -1,22 +1,23 @@
 const app = require("express")
-const router = app.Router()
-const schemauser = require('../schema/user');
+const blog1 = app.Router()
+const schemaBlog = require('../schema/blog');
 const sendResponse = require("../helper/helperResponce");
+const blog = require("../schema/blog");
 router.post("/", async(req , res)=>{
     console.log("body console->>", req.body);
 try{
-const user = await schemauser.create({...req.body})
-if(user){
-    sendResponse(res ,200 , user, 'Post Success', false)
+const blog = await schemaBlog.create({...req.body})
+if(blog){
+    sendResponse(res ,200 , blog, 'Post Success', false)
 }
 }
 catch(err){
-    sendResponse(res ,400 , user, 'Post not Sucess', true)
+    sendResponse(res ,400 , blog, 'Post not Sucess', true)
 }
 })
 router.put("/:id",async(req , res)=>{
     try{
-        const user = await schemauser.findByIdAndUpdate(req.params.id,{...req.body},{new :true}) 
+        const user = await schemaBlog.findByIdAndUpdate(req.params.id,{...req.body},{new :true}) 
         if(user){
             sendResponse(res ,200 , user, 'Edit Success', false)
         }
@@ -29,7 +30,7 @@ router.put("/:id",async(req , res)=>{
     
         router.get("/", async(req , res)=>{
             try{
-                const users = await schemauser.find()
+                const users = await schemaBlog.find()
                 if(users){
                     sendResponse(res ,200 , users, 'Find Success', false)
                 }
@@ -44,7 +45,7 @@ router.put("/:id",async(req , res)=>{
         // specific 1 user 
         router.get("/:id", async(req , res)=>{
             try{
-                const users = await schemauser.findById(req.params.id)
+                const users = await schemaBlog.findById(req.params.id)
                 if(users){
                     sendResponse(res ,200 , users, 'user found Success', false)
                 }
@@ -58,7 +59,7 @@ router.put("/:id",async(req , res)=>{
         })
             router.delete("/:id",async (req , res)=>{
                 try{
-                    const users = await schemauser.findByIdAndDelete(req.params.id)
+                    const users = await schemaBlog.findByIdAndDelete(req.params.id)
                     sendResponse(res ,200 , users, 'Delete Success', false)
                     
                 }
@@ -66,4 +67,4 @@ router.put("/:id",async(req , res)=>{
                     sendResponse(res ,400 , user, 'Delete not Sucess', true)
                 }
                 })
-                module.exports=router
+                module.exports=blog1

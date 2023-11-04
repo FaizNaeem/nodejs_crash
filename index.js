@@ -4,6 +4,7 @@ const app = express()
 const morgan = require("morgan")
 const mongoose = require("mongoose")
 const router  = require("./Router/user")
+const blog1 = require("./Router/blog")
 app.use(morgan("tiny"))
 app.use(express.json())
 mongoose.connect("mongodb+srv://faiz:faiz@cluster0.enqka2g.mongodb.net/?").then(()=>{
@@ -19,6 +20,7 @@ mongoose.connect("mongodb+srv://faiz:faiz@cluster0.enqka2g.mongodb.net/?").then(
  })
 
  app.use("/user",router)
+ app.use("/blog",blog1)
 
 
  app.listen(3000,()=>{
