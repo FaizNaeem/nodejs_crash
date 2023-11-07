@@ -2,6 +2,19 @@ const app = require("express")
 const router = app.Router()
 const schemauser = require('../schema/user');
 const sendResponse = require("../helper/helperResponce");
+router.post("/Signup", async(req , res)=>{
+try{
+const user = await schemauser.create({...req.body})
+if(user){
+    bcrypt.compareSync(req.body.password, hash); // true
+bcrypt.compareSync(someOtherPlaintextPassword, hash); // false
+    // sendResponse(res ,200 , user, 'Signup Success', false)
+}
+}
+catch(err){
+    sendResponse(res ,400 , user, 'Post not Sucess', true)
+}
+})
 router.post("/", async(req , res)=>{
     console.log("body console->>", req.body);
 try{
